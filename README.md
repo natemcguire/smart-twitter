@@ -1,8 +1,8 @@
-Twitter Scripting in Ruby
+Twitter Scripting in Ruby using Twitter Gem
 =============
 
 1. Clone repo
-2. Create twitter.yml, add twitter auth data
+2. Rename example_config.yml to twitter.yml, add twitter auth data for your account
 3. > ruby smart-twitter.rb
 
 ... follow steps
