@@ -109,7 +109,7 @@ def follow_users
   case @decision.strip
   when "Y"
     @unique_user_ids.each do |followerId|
-        begin
+      begin
         Twitter.follow(followerId)
       rescue Twitter::Error::TooManyRequests => error
           puts "Oops, we are rate limited. We will try again at: #{Time.now + error.rate_limit.reset_in + 5}"
@@ -118,6 +118,9 @@ def follow_users
       rescue Twitter::Error::ServiceUnavailable => error
         sleep(10)
         retry
+      rescue Twitter::Error::NotFound => error
+        puts "Sorry something went wrong. #{error}"
+        next
       else 
         puts ">>> followed followerID #{followerId}"
       end
@@ -146,6 +149,9 @@ def favorite_tweets
       retry
     rescue Twitter::Error::Forbidden => error
       puts "You already favorited tweet from #{tweet.user.screen_name}"
+      next
+    rescue Twitter::Error::NotFound => error
+      puts "Sorry something went wrong. #{error}"
       next
     else
       puts "Favorited '#{tweet.text}' from #{tweet.user.screen_name}"
@@ -179,6 +185,9 @@ def favorite_user_tweets
         retry
       rescue Twitter::Error::Forbidden => error
         puts "You already favorited tweet from #{@favorite_user.screen_name}"
+        next
+      rescue Twitter::Error::NotFound => error
+        puts "Sorry something went wrong. #{error}"
         next
       else
         puts ">>> Favorited last tweet of #{@favorite_user.screen_name}."
