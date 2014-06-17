@@ -177,7 +177,10 @@ def favorite_user_tweets
       rescue Twitter::Error::ServiceUnavailable => error
         sleep(10)
         retry
-      else 
+      rescue Twitter::Error::Forbidden => error
+        puts "You already favorited tweet from #{tweet.user.screen_name}"
+        next
+      else
         puts ">>> Favorited last tweet of #{@favorite_user.screen_name}."
       end
       sleep(1)
