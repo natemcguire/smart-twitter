@@ -1,4 +1,4 @@
-Twitter Scripting in Ruby using Twitter Gem
+Twitter Scripting in Ruby with Twitter Gem
 =============
 
 1. Clone repo
