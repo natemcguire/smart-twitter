@@ -1,4 +1,4 @@
-SmarterFollow - A smarter twitter follow script.
+Twitter Scripting in Ruby
 =============
 
 1. Clone repo
