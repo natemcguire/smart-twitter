@@ -109,6 +109,7 @@ def follow_users
   case @decision.strip
   when "Y"
     @unique_user_ids.each do |followerId|
+      @follow_user = Twitter.user(followerId)
       begin
         Twitter.follow(followerId)
       rescue Twitter::Error::TooManyRequests => error
@@ -122,7 +123,7 @@ def follow_users
         puts "Sorry something went wrong. #{error}"
         next
       else 
-        puts ">>> followed followerID #{followerId}"
+        puts ">>> followed followerID #{@follow_user.screen_name}"
       end
       sleep(1)
     end
